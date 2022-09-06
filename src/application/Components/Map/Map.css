@@ -1,0 +1,8 @@
+.Map {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.Map .Row {
+  display: flex;
+}
