@@ -1,11 +1,11 @@
-import { useMemo, useState } from "react";
-import { World } from "../domain/World";
-import { Roverto } from "../domain/Roverto";
-import { Map } from "./Components/Map/Map";
-import "./index.css";
-import "./App.css";
+'use client'
 
-export const App: React.FC<{}> = () => {
+import { useMemo, useState } from "react";
+import { World } from "./World";
+import { Roverto } from "./Roverto";
+import { navigationalChart } from "../application/Components/NavigationalChart/NavigationalChart";
+
+const Landing = () => {
   const world = useMemo(() => new World(), []);
   const rover = useMemo(() => new Roverto({ world }), []);
 
@@ -40,7 +40,7 @@ export const App: React.FC<{}> = () => {
         x:{position.x.toString()} y:{position.y.toString()}
       </div>
       <br />
-      <Map rover={rover} />
+      <navigationalChart rover={rover} />
       <br />
       <button onClick={onClickLeft}>↪️</button>
       <button onClick={onClickRight}>↩️</button>
@@ -49,3 +49,5 @@ export const App: React.FC<{}> = () => {
     </div>
   );
 };
+
+export default Landing

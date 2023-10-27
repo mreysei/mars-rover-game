@@ -1,8 +1,8 @@
-.Map {
+.NavigationalChart {
   display: flex;
   flex-direction: column-reverse;
 }
 
-.Map .Row {
+.NavigationalChart .Row {
   display: flex;
 }
