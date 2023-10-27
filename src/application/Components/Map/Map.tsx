@@ -1,29 +1,31 @@
-import { Direction } from '../../../infrastructure/Direction'
-import { PointType } from '../../../infrastructure/GPS'
-import { Position } from '../../../infrastructure/Position'
-import { Rover } from '../../../infrastructure/Rover'
-import './Map.css'
+import { East, North, South, West } from "../../../domain/CardinalPoint";
+import { PointType } from "../../../domain/GPS";
+import { Position } from "../../../domain/Position";
+import { Roverto } from "../../../domain/Roverto";
+import "./Map.css";
 
 interface Props {
-  rover: Rover
+  rover: Roverto;
 }
 
 export const Map: React.FC<Props> = ({ rover }: Props) => {
-  const mapRoverDirection = {
-    [Direction.north.key]: '🔼',
-    [Direction.east.key]: '▶️',
-    [Direction.west.key]: '◀️',
-    [Direction.south.key]: '🔽',
-  }
+  const cardinalPointsRepresentation: Record<string, string> = {
+    [new North().key]: "🔼",
+    [new East().key]: "▶️",
+    [new West().key]: "◀️",
+    [new South().key]: "🔽",
+  };
 
   return (
     <div className="Map">
-      {rover.gps.matrix.map((row, y) => (
+      {rover.getNavigationalChart().map((row, y) => (
         <div className="Row" key={`row-${y}`}>
           {row.map((point, x) => (
             <div className="Grid" key={`grid-${y}-${x}`}>
               {rover.position.equals(new Position(x, y)) ? (
-                <span>{mapRoverDirection[rover.direction.key]}</span>
+                <span>
+                  {cardinalPointsRepresentation[rover.cardinalPoint.key]}
+                </span>
               ) : point === PointType.empty ? (
                 <span>⬜</span>
               ) : (
@@ -34,5 +36,5 @@ export const Map: React.FC<Props> = ({ rover }: Props) => {
         </div>
       ))}
     </div>
-  )
-}
+  );
+};
